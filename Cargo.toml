@@ -12,6 +12,7 @@ description = "Typed design-token contract for the estate — DTCG 2025.10 in/ou
 readme = "README.md"
 keywords = ["design-tokens", "theme", "wcag", "accessibility", "design-system"]
 categories = ["command-line-interface", "graphics", "accessibility"]
+
 exclude = [".github/", "supply-chain/"]
 
 # Layer model: docs/layers.md in WyattAu/engineering-standards.

@@ -11,7 +11,7 @@ let mut theme = TokenGraph::new("midnight");
 theme.set_hex(Role::Surface, "#0d1117").unwrap();
 theme.set_hex(Role::OnSurface, "#e6edf3").unwrap();
 // …the rest of the 12-role vocabulary…
-// A theme that fails the gate does not warn — audit() is the build failure:
+// A theme that fails the gate does not warn; audit() is the build failure:
 let report = audit(&theme, None);
 ```
 
@@ -21,7 +21,7 @@ let report = audit(&theme, None);
 | THM-002 closed role vocabulary | `Role`; unknown token paths are typed errors |
 | THM-003 **build-failing** WCAG gate | `audit()` → `ThemeError::ContrastViolation` (names the pair + measured ratio) |
 | THM-004/005 lightness ranks + CVD collisions | `audit(graph, Some(CvdKind::Deuteranopia))` |
-| THM-006 variant derivation | `derive(&graph, Variant::{Light, HighContrast, Monochrome, Cvd(kind)})` — the seven shroom variants are derivation modes over one seed |
+| THM-006 variant derivation | `derive(&graph, Variant::{Light, HighContrast, Monochrome, Cvd(kind)})`: the seven shroom variants are derivation modes over one seed |
 | THM-007 emitters | `CssVars`, `DtcgJson`, `VsCodeTheme`, `Ansi16`, or your own `Emitter` |
 
 ### Derivation is not gate-safe: re-gate after `derive`
@@ -46,12 +46,12 @@ inaccessible theme reaches users while the build stays green.
 
 ## Properties
 
-- **L1 substrate** — the only cross-L2 coupling in the UI family; estate dep
+- **L1 substrate**: the only cross-L2 coupling in the UI family; estate dep
   `color-kit` (L0) alone. No toolkit dependency in the core: egui, ratatui,
   Slint, and Leptos lower through separate one-file adapter crates.
-- **Total** — theme files are user input; malformed JSON, unknown roles,
+- **Total**: theme files are user input; malformed JSON, unknown roles,
   unset roles, and gate failures are typed errors.
-- **Deterministic** — fixed role order and hex formatting; serialization is
+- **Deterministic**: fixed role order and hex formatting; serialization is
   byte-stable across runs (REQ-THM-009, the attestation surface).
 
 Donor: `shroom-theme` (the colour science) and `pediment` (the token schema).

@@ -24,6 +24,26 @@ let report = audit(&theme, None);
 | THM-006 variant derivation | `derive(&graph, Variant::{Light, HighContrast, Monochrome, Cvd(kind)})` — the seven shroom variants are derivation modes over one seed |
 | THM-007 emitters | `CssVars`, `DtcgJson`, `VsCodeTheme`, `Ansi16`, or your own `Emitter` |
 
+### Derivation is not gate-safe: re-gate after `derive`
+
+`derive` does **not** promise that its output passes `audit`. Measured
+2026-10-18 in `estate-integration`'s `ui_semantics` suite: a palette that
+passes as authored fails after `derive(HighContrast)`, with `on-accent` on
+`accent` at **2.88:1** against the 4.5 floor. The shipped seed palette
+survives the same derivation, so the property is palette-dependent rather
+than uniformly broken, which is exactly why it went unnoticed.
+
+A caller must therefore treat `derive` as a *proposal* and re-run the gate on
+its output:
+
+```rust
+let variant = theme_kit::derive(&graph, Variant::HighContrast)?;
+theme_kit::audit(&variant, None)?; // required: derive makes no promise
+```
+
+Shipping a derived variant without that second `audit` is how an
+inaccessible theme reaches users while the build stays green.
+
 ## Properties
 
 - **L1 substrate** — the only cross-L2 coupling in the UI family; estate dep

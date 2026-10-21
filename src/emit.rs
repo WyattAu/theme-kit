@@ -25,7 +25,11 @@ impl Emitter for CssVars {
             let view = Role::as_view(color).ok_or(ThemeError::UnparseableValue {
                 path: role.token_name().to_owned(),
             })?;
-            out.push_str(&format!("  --color-{}: {};\n", role.token_name(), view.to_hex()));
+            out.push_str(&format!(
+                "  --color-{}: {};\n",
+                role.token_name(),
+                view.to_hex()
+            ));
         }
         out.push_str("}\n");
         Ok(out)
@@ -60,17 +64,38 @@ impl Emitter for VsCodeTheme {
             Ok(view.to_hex())
         };
         let mut colors = Map::new();
-        colors.insert("editor.background".to_owned(), Value::String(hex(Role::Surface)?));
-        colors.insert("editor.foreground".to_owned(), Value::String(hex(Role::OnSurface)?));
+        colors.insert(
+            "editor.background".to_owned(),
+            Value::String(hex(Role::Surface)?),
+        );
+        colors.insert(
+            "editor.foreground".to_owned(),
+            Value::String(hex(Role::OnSurface)?),
+        );
         colors.insert(
             "editorLineNumber.foreground".to_owned(),
             Value::String(hex(Role::OnSurfaceMuted)?),
         );
-        colors.insert("editor.selectionBackground".to_owned(), Value::String(hex(Role::Selection)?));
-        colors.insert("focusBorder".to_owned(), Value::String(hex(Role::FocusRing)?));
-        colors.insert("editorIndentGuide.background".to_owned(), Value::String(hex(Role::Border)?));
-        colors.insert("errorForeground".to_owned(), Value::String(hex(Role::Error)?));
-        colors.insert("editorWarning.foreground".to_owned(), Value::String(hex(Role::Warn)?));
+        colors.insert(
+            "editor.selectionBackground".to_owned(),
+            Value::String(hex(Role::Selection)?),
+        );
+        colors.insert(
+            "focusBorder".to_owned(),
+            Value::String(hex(Role::FocusRing)?),
+        );
+        colors.insert(
+            "editorIndentGuide.background".to_owned(),
+            Value::String(hex(Role::Border)?),
+        );
+        colors.insert(
+            "errorForeground".to_owned(),
+            Value::String(hex(Role::Error)?),
+        );
+        colors.insert(
+            "editorWarning.foreground".to_owned(),
+            Value::String(hex(Role::Warn)?),
+        );
 
         let surface = graph.require(Role::Surface)?;
         let surface_l = surface.oklab()?.l;

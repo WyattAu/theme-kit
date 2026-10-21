@@ -14,10 +14,7 @@ pub struct TokenGraph {
 }
 
 fn role_index(role: Role) -> usize {
-    Role::ALL
-        .iter()
-        .position(|r| *r == role)
-        .unwrap_or(0)
+    Role::ALL.iter().position(|r| *r == role).unwrap_or(0)
 }
 
 impl TokenGraph {
@@ -85,8 +82,7 @@ impl TokenGraph {
         // refuse to drop silently.
         let mut pending: Vec<(Role, String)> = Vec::with_capacity(raw.len());
         for (path, value) in raw {
-            let role =
-                Role::from_token_path(&path).ok_or(ThemeError::UnknownRole { path })?;
+            let role = Role::from_token_path(&path).ok_or(ThemeError::UnknownRole { path })?;
             pending.push((role, value));
         }
         let mut graph = Self::new(name);
@@ -141,10 +137,7 @@ impl TokenGraph {
                 path: role.token_name().to_owned(),
             })?;
             let mut token = Map::new();
-            token.insert(
-                "$value".to_owned(),
-                Value::String(view.to_hex()),
-            );
+            token.insert("$value".to_owned(), Value::String(view.to_hex()));
             token.insert("$type".to_owned(), Value::String("color".to_owned()));
             color.insert(role.token_name().to_owned(), Value::Object(token));
         }
@@ -153,10 +146,7 @@ impl TokenGraph {
             "$schema".to_owned(),
             Value::String("https://tr.designtokens.org/format/".to_owned()),
         );
-        root.insert(
-            "$description".to_owned(),
-            Value::String(self.name.clone()),
-        );
+        root.insert("$description".to_owned(), Value::String(self.name.clone()));
         root.insert("color".to_owned(), Value::Object(color));
         serde_json::to_string_pretty(&Value::Object(root))
             .map_err(|e| ThemeError::Emit(e.to_string()))

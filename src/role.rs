@@ -86,16 +86,16 @@ impl Role {
     #[must_use]
     pub fn from_token_path(path: &str) -> Option<Role> {
         let tail = path.strip_prefix("color.").unwrap_or(path);
-        Role::ALL
-            .iter()
-            .copied()
-            .find(|r| r.token_name() == tail)
+        Role::ALL.iter().copied().find(|r| r.token_name() == tail)
     }
 
     /// True for roles used as a background behind other roles.
     #[must_use]
     pub const fn is_background(self) -> bool {
-        matches!(self, Role::Surface | Role::SurfaceRaised | Role::Accent | Role::Selection)
+        matches!(
+            self,
+            Role::Surface | Role::SurfaceRaised | Role::Accent | Role::Selection
+        )
     }
 
     /// The (foreground, background, gate) edges the audit walks (REQ-THM-003).

@@ -43,7 +43,11 @@ fn good_dark_theme() -> TokenGraph {
 fn a_good_theme_passes() {
     let report = audit(&good_dark_theme(), None).expect("the seed theme passes its own gate");
     assert_eq!(report.edges, 10);
-    assert!(report.min_ratio >= 4.5, "weakest edge was {}", report.min_ratio);
+    assert!(
+        report.min_ratio >= 4.5,
+        "weakest edge was {}",
+        report.min_ratio
+    );
 }
 
 #[test]
@@ -52,7 +56,12 @@ fn text_below_aa_is_a_build_failure() {
     t.set_hex(Role::OnSurfaceMuted, "#2a2f36").unwrap(); // ~1.6:1 on #0d1117
     let err = audit(&t, None).expect_err("the gate must fail");
     match err {
-        ThemeError::ContrastViolation { fg, bg, ratio, required } => {
+        ThemeError::ContrastViolation {
+            fg,
+            bg,
+            ratio,
+            required,
+        } => {
             assert_eq!(fg, Role::OnSurfaceMuted);
             assert_eq!(bg, Role::Surface);
             assert!(ratio < required);
@@ -85,7 +94,10 @@ fn an_unset_role_fails_the_gate() {
     // Rebuild without one role by parsing DTCG that omits it.
     let json = r##"{"color":{"surface":{"$value":"#0d1117"},"on-surface":{"$value":"#ffffff"}}}"##;
     let partial = TokenGraph::from_dtcg_json("partial", json).expect("parses");
-    assert_eq!(audit(&partial, None).unwrap_err(), ThemeError::UnsetRole(Role::SurfaceRaised));
+    assert_eq!(
+        audit(&partial, None).unwrap_err(),
+        ThemeError::UnsetRole(Role::SurfaceRaised)
+    );
     drop(t);
 }
 
@@ -136,7 +148,10 @@ fn light_variant_inverts_the_seed() {
     let light = derive(&dark, Variant::Light).expect("derives");
     let dark_bg = dark.resolve(Role::Surface).unwrap().oklab().unwrap().l;
     let light_bg = light.resolve(Role::Surface).unwrap().oklab().unwrap().l;
-    assert!(light_bg > dark_bg, "light variant lifts the surface: {dark_bg} → {light_bg}");
+    assert!(
+        light_bg > dark_bg,
+        "light variant lifts the surface: {dark_bg} → {light_bg}"
+    );
     // And the derived theme must still pass the gate it is checked against.
     let _ = audit(&light, None);
 }
@@ -165,7 +180,10 @@ fn cvd_variant_shrinks_status_separation() {
         .unwrap()
         .delta_e_ok(sim.resolve(green).unwrap())
         .unwrap();
-    assert!(after < before, "deuteranopia collapses red/green: {before} → {after}");
+    assert!(
+        after < before,
+        "deuteranopia collapses red/green: {before} → {after}"
+    );
 }
 
 #[test]
@@ -206,9 +224,15 @@ fn vscode_emitter_uses_the_roles() {
     let json = VsCodeTheme.emit(&theme).expect("emits");
     let v: serde_json::Value = serde_json::from_str(&json).expect("valid JSON");
     assert_eq!(v.get("type").and_then(|t| t.as_str()), Some("dark"));
-    let surface = theme.resolve(Role::Surface).unwrap().to_srgb8().unwrap().to_hex();
+    let surface = theme
+        .resolve(Role::Surface)
+        .unwrap()
+        .to_srgb8()
+        .unwrap()
+        .to_hex();
     assert_eq!(
-        v.pointer("/colors/editor.background").and_then(|c| c.as_str()),
+        v.pointer("/colors/editor.background")
+            .and_then(|c| c.as_str()),
         Some(surface.as_str())
     );
 }
@@ -220,7 +244,11 @@ fn ansi16_is_bounded_and_stable() {
     let b = Ansi16::default().emit(&theme).expect("emits");
     assert_eq!(a, b);
     let hexes: Vec<String> = serde_json::from_str(&a).expect("valid JSON");
-    assert!(!hexes.is_empty() && hexes.len() <= 16, "got {} colours", hexes.len());
+    assert!(
+        !hexes.is_empty() && hexes.len() <= 16,
+        "got {} colours",
+        hexes.len()
+    );
 }
 
 #[test]

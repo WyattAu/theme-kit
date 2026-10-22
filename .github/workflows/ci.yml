@@ -13,7 +13,8 @@ concurrency:
 
 jobs:
   quality:
-    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@024f2b5fc013a77316077cea58c9820d1bbfdd28 # main @ 2026-10-03
+    uses: WyattAu/engineering-standards/.github/workflows/rust-kit.yml@main
     with:
+      estate-siblings: "color-kit"
       tier: c            # onboarding tier — informational coverage; promote to b once measured
       all-features: true

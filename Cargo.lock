@@ -88,7 +88,7 @@ dependencies = [
 
 [[package]]
 name = "color-kit"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "libm",
  "thiserror",
@@ -394,7 +394,7 @@ dependencies = [
 
 [[package]]
 name = "theme-kit"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "color-kit",
  "proptest",

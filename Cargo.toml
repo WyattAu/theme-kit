@@ -1,6 +1,6 @@
 [package]
 name = "theme-kit"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 rust-version = "1.85"
 authors = ["Wyatt Au <wyatt_au@protonmail.com>"]
@@ -8,7 +8,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/WyattAu/theme-kit"
 homepage = "https://github.com/WyattAu/theme-kit"
 documentation = "https://docs.rs/theme-kit"
-description = "Typed design-token contract for the estate — DTCG 2025.10 in/out, semantic role vocabulary, build-failing WCAG contrast gate, derived CVD/high-contrast/monochrome variants, data-only emitters (CSS, VS Code, ANSI-16)"
+description = "Typed design-token contract for the estate: DTCG 2025.10 in/out, semantic role vocabulary, build-failing WCAG contrast gate, derived CVD/high-contrast/monochrome variants, data-only emitters (CSS, VS Code, ANSI-16)"
 readme = "README.md"
 keywords = ["design-tokens", "theme", "wcag", "accessibility", "design-system"]
 categories = ["command-line-interface", "graphics", "accessibility"]

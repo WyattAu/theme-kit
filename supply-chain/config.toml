@@ -50,10 +50,6 @@ criteria = "safe-to-run"
 version = "0.10.2"
 criteria = "safe-to-run"
 
-[[exemptions.color-kit]]
-version = "0.1.0"
-criteria = "safe-to-deploy"
-
 [[exemptions.core_detect]]
 version = "1.0.0"
 criteria = "safe-to-run"
@@ -189,10 +185,6 @@ criteria = "safe-to-deploy"
 [[exemptions.tempfile]]
 version = "3.27.0"
 criteria = "safe-to-run"
-
-[[exemptions.theme-kit]]
-version = "0.1.0"
-criteria = "safe-to-deploy"
 
 [[exemptions.thiserror]]
 version = "2.0.21"

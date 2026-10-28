@@ -1,4 +1,12 @@
 
 # cargo-vet audits file
 
-[audits]
+[[audits.color-kit]]
+who = "WyattAu <wyatt_au@protonmail.com>"
+criteria = "safe-to-deploy"
+version = "0.1.1"
+
+[[audits.theme-kit]]
+who = "WyattAu <wyatt_au@protonmail.com>"
+criteria = "safe-to-deploy"
+version = "0.1.1"
